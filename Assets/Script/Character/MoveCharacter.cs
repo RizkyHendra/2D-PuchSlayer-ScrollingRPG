@@ -10,7 +10,7 @@ public class MoveCharacter : MonoBehaviour
     bool Hurt, Death;
     bool facingRight = true;
     Vector3 localScale;
-    int healthPoint = 3;
+   
     // Start is called before the first frame update
     void Start()
     {
@@ -24,13 +24,13 @@ public class MoveCharacter : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump") && !Death && rb.velocity.y == 0)
         {
-            rb.AddForce(Vector2.up * 450f);
+            rb.AddForce(Vector2.up * 400f);
         }
        
         SetAnimationState();
         if (!Death)
         {
-            moveSpeed = 3f;
+            moveSpeed = 2f;
             dirX = Input.GetAxisRaw("Horizontal") * moveSpeed;
         }
 
@@ -59,7 +59,7 @@ public class MoveCharacter : MonoBehaviour
             anim.SetBool("Jump", false);
             anim.SetBool("Fall", false);
         }
-        if (Mathf.Abs(dirX) == 3 && rb.velocity.y == 0)
+        if (Mathf.Abs(dirX) == 2 && rb.velocity.y == 0)
         {
             anim.SetBool("Run", true);
         }
@@ -68,7 +68,7 @@ public class MoveCharacter : MonoBehaviour
             anim.SetBool("Run", false);
         }
        
-        if (Input.GetKey(KeyCode.DownArrow) && Mathf.Abs(dirX) == 3)
+        if (Input.GetKey(KeyCode.DownArrow) && Mathf.Abs(dirX) == 2)
         {
             anim.SetBool("Dash", true);
         }
@@ -80,6 +80,7 @@ public class MoveCharacter : MonoBehaviour
         {
             anim.SetBool("Jump", true);
         }
+       
         if (rb.velocity.y < 0)
         {
             anim.SetBool("Jump", false);
@@ -97,23 +98,23 @@ public class MoveCharacter : MonoBehaviour
         transform.localScale = localScale;
 
     }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.gameObject.name.Equals("Fire"))
-        {
-            healthPoint -= 1;
-        }
-        if(collision.gameObject.name.Equals("Fire") && healthPoint > 0)
-        {
-            anim.SetTrigger("Hurt");
-            StartCoroutine("isHurt");
-        }else
-        {
-            dirX = 0;
-            Death = true;
-            anim.SetTrigger("Death");
-        }
-    }
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if(collision.gameObject.name.Equals("Fire"))
+    //    {
+    //        healthPoint -= 1;
+    //    }
+    //    if(collision.gameObject.name.Equals("Fire") && healthPoint > 0)
+    //    {
+    //        anim.SetTrigger("Hurt");
+    //        StartCoroutine("isHurt");
+    //    }else
+    //    {
+    //        dirX = 0;
+    //        Death = true;
+    //        anim.SetTrigger("Death");
+    //    }
+    //}
 
 
     IEnumerator isHurt()

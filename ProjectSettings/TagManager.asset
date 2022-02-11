@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Character
   layers:
   - Default
   - TransparentFX
@@ -41,6 +42,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: ArtLayer
+  - name: Art
     uniqueID: 2619497367
+    locked: 0
+  - name: Object
+    uniqueID: 941967241
     locked: 0
