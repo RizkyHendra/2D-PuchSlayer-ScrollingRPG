@@ -10,6 +10,7 @@ public class MoveCharacter : MonoBehaviour
     bool Hurt, Death;
     bool facingRight = true;
     Vector3 localScale;
+    int healthPoint = 3;
     // Start is called before the first frame update
     void Start()
     {
@@ -101,6 +102,23 @@ public class MoveCharacter : MonoBehaviour
             localScale.x *= -1;
         transform.localScale = localScale;
 
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.name.Equals("Fire"))
+        {
+            healthPoint -= 1;
+        }
+        if(collision.gameObject.name.Equals("Fire") && healthPoint > 0)
+        {
+            anim.SetTrigger("Hurt");
+            StartCoroutine("isHurt");
+        }else
+        {
+            dirX = 0;
+            Death = true;
+            anim.SetTrigger("Death");
+        }
     }
 
 
