@@ -24,19 +24,13 @@ public class MoveCharacter : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump") && !Death && rb.velocity.y == 0)
         {
-            rb.AddForce(Vector2.up * 600f);
+            rb.AddForce(Vector2.up * 450f);
         }
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            moveSpeed = 5f;
-        }
-        else
-        {
-            moveSpeed = 5f;
-        }
+       
         SetAnimationState();
         if (!Death)
         {
+            moveSpeed = 3f;
             dirX = Input.GetAxisRaw("Horizontal") * moveSpeed;
         }
 
@@ -65,7 +59,7 @@ public class MoveCharacter : MonoBehaviour
             anim.SetBool("Jump", false);
             anim.SetBool("Fall", false);
         }
-        if (Mathf.Abs(dirX) == 5 && rb.velocity.y == 0)
+        if (Mathf.Abs(dirX) == 3 && rb.velocity.y == 0)
         {
             anim.SetBool("Run", true);
         }
@@ -74,7 +68,7 @@ public class MoveCharacter : MonoBehaviour
             anim.SetBool("Run", false);
         }
        
-        if (Input.GetKey(KeyCode.DownArrow) && Mathf.Abs(dirX) == 5)
+        if (Input.GetKey(KeyCode.DownArrow) && Mathf.Abs(dirX) == 3)
         {
             anim.SetBool("Dash", true);
         }
