@@ -5,8 +5,11 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     public Animator anim;
+    public GameObject SkillOne;
     public Transform attackPoint;
+    public Transform skillPoint;
     public float attackRange = 0.5f;
+    public float SkillRange = 0.5f;
     public LayerMask enemyLayer;
     public int attackDamage = 40;
     private Rigidbody2D rb;
@@ -14,24 +17,70 @@ public class PlayerAttack : MonoBehaviour
     public float attackRate = 2f;
     float nextAttackTime = 0f;
 
+    public int combo = 0;
+
+    public MoveCharacter _move;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+       
+
     }
     private void Update()
     {
         if(Time.time >= nextAttackTime)
         {
-            if (Input.GetKey(KeyCode.R) && rb.velocity.y == 0)
+            
+            if (Input.GetMouseButtonDown(0) && rb.velocity.y == 0)
             {
-                Attack();
-                nextAttackTime = Time.time + 1f / attackRate;
+                combo++;
+               
+                if (combo == 1)
+
+                {
+                    Attack1();
+                    nextAttackTime = Time.time + 1f / attackRate;
+
+                    
+                }
+                if (combo == 2)
+                {
+                    Attack2();
+                    nextAttackTime = Time.time + 1f / attackRate;
+                }
+                if (combo == 3)
+                {
+                    Attack3();
+                    nextAttackTime = Time.time + 1f / attackRate;
+                    combo = 0;
+                }
+
+                combo = Mathf.Clamp(combo, 0, 3);
+
             }
+            
+        }
+        if (Input.GetKey(KeyCode.R))
+        {
+            Skill1();
+            nextAttackTime = Time.time + 1f / attackRate;
+            StartCoroutine("skillOneActive");
+
+        }
+        if (Input.GetMouseButtonDown(0) && rb.velocity.y > 0)
+        {
+            AttackJump();
+            nextAttackTime = Time.time + 1f / attackRate;
         }
        
+      
+
+
+
     }
 
-    void Attack()
+    void Attack1()
     {
         anim.SetTrigger("Attack");
         Collider2D [] hitEnemy = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
@@ -39,17 +88,79 @@ public class PlayerAttack : MonoBehaviour
         foreach(Collider2D enemy in hitEnemy)
         {
             enemy.GetComponent<EnemyAction>().TakeDamage(attackDamage);
+
+        }
+      
+        
+    }
+    void Attack2()
+    {
+        anim.SetTrigger("Attack2");
+        Collider2D[] hitEnemy = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
+
+        foreach (Collider2D enemy in hitEnemy)
+        {
+            enemy.GetComponent<EnemyAction>().TakeDamage(attackDamage);
+        }
+    }
+    void Attack3()
+    {
+        anim.SetTrigger("Attack3");
+        Collider2D[] hitEnemy = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
+
+        foreach (Collider2D enemy in hitEnemy)
+        {
+            enemy.GetComponent<EnemyAction>().TakeDamage(attackDamage);
         }
     }
 
-     void OnDrawGizmosSelected()
+    void AttackJump()
     {
-        if(attackPoint == null)
+        anim.SetTrigger("JumpAttack");
+        Collider2D[] hitEnemy = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
+
+        foreach (Collider2D enemy in hitEnemy)
+        {
+            enemy.GetComponent<EnemyAction>().TakeDamage(attackDamage);
+        }
+    }
+   
+
+    void Skill1()
+    {
+
+        anim.SetTrigger("Skill1");
+        
+        Collider2D[] hitEnemy = Physics2D.OverlapCircleAll(skillPoint.position, SkillRange, enemyLayer);
+
+        foreach (Collider2D enemy in hitEnemy)
+        {
+            enemy.GetComponent<EnemyAction>().TakeDamage(attackDamage);
+        }
+        
+    }
+
+    public IEnumerator skillOneActive()
+    {
+        SkillOne.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        SkillOne.SetActive(false);
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        if (attackPoint == null)
         {
             return;
         }
-       
+
+        if(skillPoint == null)
+        {
+            return;
+        }
+
         Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+        Gizmos.DrawWireSphere(skillPoint.position, SkillRange);
     }
 
 }

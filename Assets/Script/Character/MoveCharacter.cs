@@ -50,8 +50,10 @@ public class MoveCharacter : MonoBehaviour
 
     void SetAnimationState()
     {
+       
         if (dirX == 0)
         {
+           
             anim.SetBool("Run", false);
         }
         if (rb.velocity.y == 0)
@@ -116,6 +118,7 @@ public class MoveCharacter : MonoBehaviour
     //    }
     //}
 
+  
 
     IEnumerator isHurt()
     {
