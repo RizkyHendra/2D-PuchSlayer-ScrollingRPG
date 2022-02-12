@@ -39,11 +39,13 @@ public class EnemyAction : MonoBehaviour
     public Animator anim;
     public int maxHealth = 100;
     int currentHealth;
+    public float speed;
 
     private void Start()
     {
         anim = GetComponent<Animator>();
         currentHealth = maxHealth;
+        anim.SetBool("Run", true);
     }
     public void TakeDamage(int damage)
     {
@@ -54,13 +56,24 @@ public class EnemyAction : MonoBehaviour
             Die();
         }
     }
+    private void Update()
+    {
+        transform.Translate(Vector2.left * speed * Time.deltaTime);
+    }
 
     void Die()
     {
        
         Debug.Log("EnemyDie");
-        anim.SetBool("Death", true);
+        StartCoroutine("enemyDie");
         GetComponent<Collider2D>().enabled = false;
         this.enabled = false;
+    }
+
+    public IEnumerator enemyDie()
+    {
+        anim.SetBool("Death", true);
+        yield return new WaitForSeconds(1.5f);
+        Destroy(gameObject);
     }
 }

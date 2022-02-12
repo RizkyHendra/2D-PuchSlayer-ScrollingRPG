@@ -31,7 +31,14 @@ public class PlayerAttack : MonoBehaviour
     {
         if(Time.time >= nextAttackTime)
         {
-            
+            if (Input.GetKey(KeyCode.R) && rb.velocity.y == 0)
+            {
+                Skill1();
+                nextAttackTime = Time.time + 1f / attackRate;
+                StartCoroutine("skillOneActive");
+
+
+            }
             if (Input.GetMouseButtonDown(0) && rb.velocity.y == 0)
             {
                 combo++;
@@ -59,20 +66,15 @@ public class PlayerAttack : MonoBehaviour
                 combo = Mathf.Clamp(combo, 0, 3);
 
             }
-            
-        }
-        if (Input.GetKey(KeyCode.R))
-        {
-            Skill1();
-            nextAttackTime = Time.time + 1f / attackRate;
-            StartCoroutine("skillOneActive");
+            if (Input.GetMouseButtonDown(0) && rb.velocity.y > 0)
+            {
+                AttackJump();
+                nextAttackTime = Time.time + 1f / attackRate;
+            }
 
         }
-        if (Input.GetMouseButtonDown(0) && rb.velocity.y > 0)
-        {
-            AttackJump();
-            nextAttackTime = Time.time + 1f / attackRate;
-        }
+       
+       
        
       
 
@@ -84,7 +86,7 @@ public class PlayerAttack : MonoBehaviour
     {
         anim.SetTrigger("Attack");
         Collider2D [] hitEnemy = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
-
+    
         foreach(Collider2D enemy in hitEnemy)
         {
             enemy.GetComponent<EnemyAction>().TakeDamage(attackDamage);
@@ -143,7 +145,7 @@ public class PlayerAttack : MonoBehaviour
     public IEnumerator skillOneActive()
     {
         SkillOne.SetActive(true);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         SkillOne.SetActive(false);
     }
 
