@@ -26,7 +26,7 @@ public class MoveCharacter : MonoBehaviour
         {
             rb.AddForce(Vector2.up * 400f);
         }
-       
+
         SetAnimationState();
         if (!Death)
         {

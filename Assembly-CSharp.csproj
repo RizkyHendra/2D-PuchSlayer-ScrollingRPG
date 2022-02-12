@@ -57,8 +57,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Script\Character\MoveCharacter.cs" />
+    <Compile Include="Assets\Script\Character\PlayerAttack.cs" />
     <Compile Include="Assets\Script\Coin\CoinCounter.cs" />
     <Compile Include="Assets\Script\Coin\TakeCoin.cs" />
+    <Compile Include="Assets\Script\Enemy\EnemyAction.cs" />
+    <Compile Include="Assets\Script\GameManager\GameManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
