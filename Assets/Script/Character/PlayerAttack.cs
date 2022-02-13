@@ -11,7 +11,8 @@ public class PlayerAttack : MonoBehaviour
     public float attackRange = 0.5f;
     public float SkillRange = 0.5f;
     public LayerMask enemyLayer;
-    public int attackDamage = 40;
+    public int attackDamage = 20;
+    public int skillDamage = 40;
     private Rigidbody2D rb;
 
     public float attackRate = 2f;
@@ -19,7 +20,8 @@ public class PlayerAttack : MonoBehaviour
 
     public int combo = 0;
 
-    public MoveCharacter _move;
+    public EnemyAction _comboTree;
+    
 
     private void Start()
     {
@@ -36,7 +38,7 @@ public class PlayerAttack : MonoBehaviour
                 Skill1();
                 nextAttackTime = Time.time + 1f / attackRate;
                 StartCoroutine("skillOneActive");
-
+                
 
             }
             if (Input.GetMouseButtonDown(0) && rb.velocity.y == 0)
@@ -59,8 +61,11 @@ public class PlayerAttack : MonoBehaviour
                 if (combo == 3)
                 {
                     Attack3();
+                   
                     nextAttackTime = Time.time + 1f / attackRate;
+                  
                     combo = 0;
+                   
                 }
 
                 combo = Mathf.Clamp(combo, 0, 3);
@@ -105,8 +110,9 @@ public class PlayerAttack : MonoBehaviour
             enemy.GetComponent<EnemyAction>().TakeDamage(attackDamage);
         }
     }
-    void Attack3()
+   public void Attack3()
     {
+        _comboTree.TakeAir();
         anim.SetTrigger("Attack3");
         Collider2D[] hitEnemy = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
 
@@ -137,7 +143,7 @@ public class PlayerAttack : MonoBehaviour
 
         foreach (Collider2D enemy in hitEnemy)
         {
-            enemy.GetComponent<EnemyAction>().TakeDamage(attackDamage);
+            enemy.GetComponent<EnemyAction>().TakeDamage(skillDamage);
         }
         
     }
