@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MoveCharacter : MonoBehaviour
 {
@@ -10,23 +11,41 @@ public class MoveCharacter : MonoBehaviour
     bool Hurt, Death;
     bool facingRight = true;
     Vector3 localScale;
-   
+
+    // health
+
+    
+    public int maxHealth;
+    public int currentHealth;
+    public HealthBar healthbar;
+    public EnemyAction damage;
+
+
     // Start is called before the first frame update
     void Start()
     {
+       
+       
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         localScale = transform.localScale;
+        currentHealth = maxHealth;
+        healthbar.setMaxhealth(maxHealth);
+       
+      
     }
 
     // Update is called once per frame
     void Update()
     {
+        
+       
+        
         if (Input.GetButtonDown("Jump") && !Death && rb.velocity.y == 0)
         {
             rb.AddForce(Vector2.up * 400f);
         }
-
+      
         SetAnimationState();
         if (!Death)
         {
@@ -35,6 +54,11 @@ public class MoveCharacter : MonoBehaviour
         }
 
 
+    }
+    void takeDamage(int damage)
+    {
+        currentHealth -= damage;
+        healthbar.setHealth(currentHealth); 
     }
     private void FixedUpdate()
     {
@@ -51,6 +75,7 @@ public class MoveCharacter : MonoBehaviour
     void SetAnimationState()
     {
        
+
         if (dirX == 0)
         {
            
@@ -100,35 +125,45 @@ public class MoveCharacter : MonoBehaviour
         transform.localScale = localScale;
 
     }
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    if(collision.gameObject.name.Equals("Fire"))
-    //    {
-    //        healthPoint -= 1;
-    //    }
-    //    if(collision.gameObject.name.Equals("Fire") && healthPoint > 0)
-    //    {
-    //        anim.SetTrigger("Hurt");
-    //        StartCoroutine("isHurt");
-    //    }else
-    //    {
-    //        dirX = 0;
-    //        Death = true;
-    //        anim.SetTrigger("Death");
-    //    }
-    //}
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
 
-  
+        if(collision.gameObject.tag =="Star")
+        {
+            StartCoroutine("isHurt");
+            anim.SetTrigger("Hurt");
+           
+            takeDamage(20);
+
+        }
+
+        if (currentHealth == 0)
+        {
+            anim.SetTrigger("Death");
+           
+            Death = true;
+
+            dirX = 0;
+        }
+
+
+
+    }
+
+    
 
     IEnumerator isHurt()
     {
         Hurt = true;
         rb.velocity = Vector2.zero;
         if (facingRight)
-            rb.AddForce(new Vector2(-200f, 200f));
+            rb.AddForce(new Vector2(-100f, 100f));
         else
-            rb.AddForce(new Vector2(200f, 200f));
+            rb.AddForce(new Vector2(150f, 150f));
         yield return new WaitForSeconds(0.5f);
         Hurt = false;
+
+
+        
     }
 }

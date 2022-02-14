@@ -44,6 +44,8 @@ public class EnemyAction : MonoBehaviour
     public PlayerAttack _combo;
     Vector3 localScale;
 
+    
+
     Rigidbody2D rb;
     private void Start()
     {
@@ -52,6 +54,7 @@ public class EnemyAction : MonoBehaviour
         anim.SetBool("Run", true);
         rb = GetComponent<Rigidbody2D>();
         localScale = transform.localScale;
+        
 
 
     }
@@ -85,8 +88,10 @@ public class EnemyAction : MonoBehaviour
         transform.Translate(Vector2.left * speed * Time.deltaTime);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void OnTriggerEnter2D(Collider2D collision)
     {
+       
+
         if (collision.gameObject.tag == "Ground")
         {
             transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
@@ -95,12 +100,16 @@ public class EnemyAction : MonoBehaviour
 
         if (collision.gameObject.tag == "Character")
         {
+            
+
             anim.SetBool("Attack", true);
         }
         else
         {
             anim.SetBool("Attack", false);
         }
+
+
 
 
     }
@@ -120,4 +129,6 @@ public class EnemyAction : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         enemy.SetActive(false);
     }
+
+
 }
