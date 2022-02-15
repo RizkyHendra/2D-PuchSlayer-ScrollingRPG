@@ -11,6 +11,7 @@ public class MoveCharacter : MonoBehaviour
     bool Hurt, Death;
     bool facingRight = true;
     Vector3 localScale;
+    public GameObject Pause;
 
     // health
 
@@ -18,6 +19,7 @@ public class MoveCharacter : MonoBehaviour
     public int maxHealth;
     public int currentHealth;
     public HealthBar healthbar;
+    public Pause pausee;
    
 
 
@@ -38,6 +40,10 @@ public class MoveCharacter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(currentHealth > 100)
+        {
+            currentHealth = 100;
+        }
         
        
         
@@ -55,10 +61,18 @@ public class MoveCharacter : MonoBehaviour
 
 
     }
+
+    
     void takeDamage(int damage)
     {
         currentHealth -= damage;
         healthbar.setHealth(currentHealth); 
+    }
+
+    void HealthPotion(int Health)
+    {
+        currentHealth += Health;
+        healthbar.setHealth(currentHealth);
     }
     private void FixedUpdate()
     {
@@ -150,7 +164,7 @@ public class MoveCharacter : MonoBehaviour
             anim.SetTrigger("Death");
            
             Death = true;
-
+            Pause.SetActive(true);
             dirX = 0;
         }
 
@@ -167,12 +181,21 @@ public class MoveCharacter : MonoBehaviour
         {
             takeDamage(100);
             anim.SetTrigger("Death");
-
+            Pause.SetActive(true);
+          
             Death = true;
 
             dirX = 0;
 
            
+
+        }
+        if (collision.gameObject.tag == "PotionRed")
+        {
+            HealthPotion(10);
+          
+
+
 
         }
 

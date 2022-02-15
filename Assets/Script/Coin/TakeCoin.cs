@@ -8,6 +8,7 @@ public class TakeCoin : MonoBehaviour
     {
         if(collision.gameObject.tag == "Character")
         {
+           
             CoinCounter.cointAmount += 1;
             Destroy(gameObject);
 

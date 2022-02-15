@@ -61,11 +61,17 @@
     <Compile Include="Assets\Script\Character\MoveCharacter.cs" />
     <Compile Include="Assets\Script\Character\PlayerAttack.cs" />
     <Compile Include="Assets\Script\Coin\CoinCounter.cs" />
+    <Compile Include="Assets\Script\Coin\KeyCounter.cs" />
     <Compile Include="Assets\Script\Coin\TakeCoin.cs" />
+    <Compile Include="Assets\Script\Coin\TakeKey.cs" />
     <Compile Include="Assets\Script\Enemy\EnemyAction.cs" />
     <Compile Include="Assets\Script\Enemy\EnemyBehavior.cs" />
     <Compile Include="Assets\Script\Enemy\EnemyPatrol.cs" />
     <Compile Include="Assets\Script\GameManager\GameManager.cs" />
+    <Compile Include="Assets\Script\Object\Chest\Action.cs" />
+    <Compile Include="Assets\Script\Object\Potion\PotionRed.cs" />
+    <Compile Include="Assets\Script\Pause\Pause.cs" />
+    <Compile Include="Assets\Script\Pause\RestartAndAnyMore.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
