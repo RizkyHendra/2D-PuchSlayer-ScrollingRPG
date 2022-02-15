@@ -18,7 +18,7 @@ public class MoveCharacter : MonoBehaviour
     public int maxHealth;
     public int currentHealth;
     public HealthBar healthbar;
-    public EnemyAction damage;
+   
 
 
     // Start is called before the first frame update
@@ -43,13 +43,13 @@ public class MoveCharacter : MonoBehaviour
         
         if (Input.GetButtonDown("Jump") && !Death && rb.velocity.y == 0)
         {
-            rb.AddForce(Vector2.up * 400f);
+            rb.AddForce(Vector2.up * 450f);
         }
       
         SetAnimationState();
         if (!Death)
         {
-            moveSpeed = 2f;
+            moveSpeed = 2.5f;
             dirX = Input.GetAxisRaw("Horizontal") * moveSpeed;
         }
 
@@ -74,7 +74,15 @@ public class MoveCharacter : MonoBehaviour
 
     void SetAnimationState()
     {
-       
+        if (currentHealth < 0)
+        {
+            currentHealth = 0;
+            anim.SetTrigger("Death");
+
+            Death = true;
+
+            dirX = 0;
+        }
 
         if (dirX == 0)
         {
@@ -86,7 +94,7 @@ public class MoveCharacter : MonoBehaviour
             anim.SetBool("Jump", false);
             anim.SetBool("Fall", false);
         }
-        if (Mathf.Abs(dirX) == 2 && rb.velocity.y == 0)
+        if (Mathf.Abs(dirX) == 2.5 && rb.velocity.y == 0)
         {
             anim.SetBool("Run", true);
         }
@@ -133,7 +141,7 @@ public class MoveCharacter : MonoBehaviour
             StartCoroutine("isHurt");
             anim.SetTrigger("Hurt");
            
-            takeDamage(20);
+            takeDamage(1);
 
         }
 
@@ -145,6 +153,30 @@ public class MoveCharacter : MonoBehaviour
 
             dirX = 0;
         }
+
+        if (collision.gameObject.tag == "Spike")
+        {
+            
+            anim.SetTrigger("Hurt");
+           
+            takeDamage(10);
+
+        }
+
+        if (collision.gameObject.tag == "Water")
+        {
+            takeDamage(100);
+            anim.SetTrigger("Death");
+
+            Death = true;
+
+            dirX = 0;
+
+           
+
+        }
+
+
 
 
 

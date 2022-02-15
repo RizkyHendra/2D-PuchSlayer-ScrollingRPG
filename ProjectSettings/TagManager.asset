@@ -9,6 +9,8 @@ TagManager:
   - Enemy
   - Ground
   - Star
+  - Spike
+  - Water
   layers:
   - Default
   - TransparentFX

@@ -113,7 +113,7 @@ public class PlayerAttack : MonoBehaviour
     }
    public void Attack3()
     {
-        _comboTree.TakeAir();
+       
         anim.SetTrigger("Attack3");
         Collider2D[] hitEnemy = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
 
