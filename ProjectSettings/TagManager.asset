@@ -12,6 +12,7 @@ TagManager:
   - Spike
   - Water
   - PotionRed
+  - PotionBlue
   layers:
   - Default
   - TransparentFX

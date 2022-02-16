@@ -14,13 +14,16 @@ public class MoveCharacter : MonoBehaviour
     public GameObject Pause;
 
     // health
-
-    
     public int maxHealth;
     public int currentHealth;
     public HealthBar healthbar;
-    public Pause pausee;
-   
+
+    // stamina
+    public float maxStamina;
+    public float currentStamina;
+    public StaminaBar staminaBar;
+
+  
 
 
     // Start is called before the first frame update
@@ -33,20 +36,22 @@ public class MoveCharacter : MonoBehaviour
         localScale = transform.localScale;
         currentHealth = maxHealth;
         healthbar.setMaxhealth(maxHealth);
+
+        currentStamina = maxStamina;
+        staminaBar.setMaxStamina(maxStamina);
        
       
     }
+    
 
     // Update is called once per frame
     void Update()
     {
-        if(currentHealth > 100)
+       
+        if (currentHealth > 100)
         {
             currentHealth = 100;
         }
-        
-       
-        
         if (Input.GetButtonDown("Jump") && !Death && rb.velocity.y == 0)
         {
             rb.AddForce(Vector2.up * 450f);
@@ -59,7 +64,13 @@ public class MoveCharacter : MonoBehaviour
             dirX = Input.GetAxisRaw("Horizontal") * moveSpeed;
         }
 
+      
+    }
 
+    void Stamina(float stamina)
+    {
+        currentStamina -= stamina;
+        staminaBar.setStamina(currentStamina);
     }
 
     
@@ -74,8 +85,15 @@ public class MoveCharacter : MonoBehaviour
         currentHealth += Health;
         healthbar.setHealth(currentHealth);
     }
+
+    void StaminaPotion(float staminaPlus)
+    {
+        currentStamina += staminaPlus;
+        staminaBar.setStamina(currentStamina);
+    }
     private void FixedUpdate()
     {
+       
         if (!Hurt)
         {
             rb.velocity = new Vector2(dirX, rb.velocity.y);
@@ -116,20 +134,49 @@ public class MoveCharacter : MonoBehaviour
         {
             anim.SetBool("Run", false);
         }
-       
-        if (Input.GetKey(KeyCode.DownArrow) && Mathf.Abs(dirX) == 2)
+
+
+        if (Input.GetKey(KeyCode.Q) && Mathf.Abs(dirX) == 2.5 &&  currentStamina > 0)
         {
-            anim.SetBool("Dash", true);
+            if(facingRight == true)
+            {
+                anim.SetBool("Dash", true);
+                Stamina(0.1f);
+                rb.AddForce(Vector2.right * 75f);
+            }    
+
+            if(facingRight == false)
+            {
+                anim.SetBool("Dash", true);
+                Stamina(0.1f);
+                rb.AddForce(Vector2.left * 75f);
+            }
+           
+
         }
         else
         {
             anim.SetBool("Dash", false);
+            rb.AddForce(Vector2.right * 0f);
+            rb.AddForce(Vector2.left * 0f);
         }
-        if( rb.velocity.y > 0)
+    
+       
+    
+
+
+
+
+
+
+
+        if (rb.velocity.y > 0)
         {
+         
             anim.SetBool("Jump", true);
         }
-       
+      
+
         if (rb.velocity.y < 0)
         {
             anim.SetBool("Jump", false);
@@ -154,7 +201,8 @@ public class MoveCharacter : MonoBehaviour
         {
             StartCoroutine("isHurt");
             anim.SetTrigger("Hurt");
-           
+            
+                
             takeDamage(1);
 
         }
@@ -198,14 +246,24 @@ public class MoveCharacter : MonoBehaviour
 
 
         }
+        if (collision.gameObject.tag == "PotionBlue")
+        {
+            StaminaPotion(10f);
+
+
+
+
+        }
 
 
 
 
 
     }
+   
 
-    
+
+
 
     IEnumerator isHurt()
     {
