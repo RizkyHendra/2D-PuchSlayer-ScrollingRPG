@@ -52,8 +52,13 @@ public class MoveCharacter : MonoBehaviour
         {
             currentHealth = 100;
         }
+        if (currentStamina > 100)
+        {
+            currentStamina = 100;
+        }
         if (Input.GetButtonDown("Jump") && !Death && rb.velocity.y == 0)
         {
+            SoundManager.Playsound("Jump");
             rb.AddForce(Vector2.up * 450f);
         }
       
@@ -136,10 +141,11 @@ public class MoveCharacter : MonoBehaviour
         }
 
 
-        if (Input.GetKey(KeyCode.Q) && Mathf.Abs(dirX) == 2.5 &&  currentStamina > 0)
+        if (Input.GetKey(KeyCode.Q) && Mathf.Abs(dirX) == 2.5 &&  currentStamina > 0 && rb.velocity.y == 0)
         {
             if(facingRight == true)
             {
+                
                 anim.SetBool("Dash", true);
                 Stamina(0.1f);
                 rb.AddForce(Vector2.right * 75f);
@@ -147,6 +153,7 @@ public class MoveCharacter : MonoBehaviour
 
             if(facingRight == false)
             {
+                
                 anim.SetBool("Dash", true);
                 Stamina(0.1f);
                 rb.AddForce(Vector2.left * 75f);
@@ -201,14 +208,15 @@ public class MoveCharacter : MonoBehaviour
         {
             StartCoroutine("isHurt");
             anim.SetTrigger("Hurt");
-            
-                
+            SoundManager.Playsound("Hurt");
+
             takeDamage(1);
 
         }
 
         if (currentHealth == 0)
         {
+            SoundManager.Playsound("Hurt");
             anim.SetTrigger("Death");
            
             Death = true;
@@ -222,6 +230,7 @@ public class MoveCharacter : MonoBehaviour
             anim.SetTrigger("Hurt");
            
             takeDamage(10);
+            SoundManager.Playsound("Hurt");
 
         }
 
@@ -241,7 +250,7 @@ public class MoveCharacter : MonoBehaviour
         if (collision.gameObject.tag == "PotionRed")
         {
             HealthPotion(10);
-          
+            SoundManager.Playsound("Potion");
 
 
 
@@ -249,6 +258,8 @@ public class MoveCharacter : MonoBehaviour
         if (collision.gameObject.tag == "PotionBlue")
         {
             StaminaPotion(10f);
+            SoundManager.Playsound("Potion");
+
 
 
 

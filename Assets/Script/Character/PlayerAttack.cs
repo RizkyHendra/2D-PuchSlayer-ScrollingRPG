@@ -35,6 +35,7 @@ public class PlayerAttack : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.R) && rb.velocity.y == 0)
             {
+                SoundManager.Playsound("Skill");
                 Skill1();
                 nextAttackTime = Time.time + 1f / attackRate;
                 StartCoroutine("skillOneActive");
@@ -48,6 +49,7 @@ public class PlayerAttack : MonoBehaviour
                 if (combo == 1)
 
                 {
+                    SoundManager.Playsound("Hit");
                     Attack1();
                     nextAttackTime = Time.time + 1f / attackRate;
 
@@ -55,11 +57,13 @@ public class PlayerAttack : MonoBehaviour
                 }
                 if (combo == 2)
                 {
+                    SoundManager.Playsound("Hit");
                     Attack2();
                     nextAttackTime = Time.time + 1f / attackRate;
                 }
                 if (combo == 3)
                 {
+                    SoundManager.Playsound("Hit");
                     Attack3();
                    
                     nextAttackTime = Time.time + 1f / attackRate;
@@ -73,6 +77,7 @@ public class PlayerAttack : MonoBehaviour
             }
             if (Input.GetMouseButtonDown(0) && rb.velocity.y > 0)
             {
+                SoundManager.Playsound("Hit");
                 AttackJump();
                 nextAttackTime = Time.time + 1f / attackRate;
             }

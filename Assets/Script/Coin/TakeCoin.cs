@@ -8,7 +8,8 @@ public class TakeCoin : MonoBehaviour
     {
         if(collision.gameObject.tag == "Character")
         {
-           
+            SoundManager.Playsound("Coin");
+
             CoinCounter.cointAmount += 1;
             Destroy(gameObject);
 

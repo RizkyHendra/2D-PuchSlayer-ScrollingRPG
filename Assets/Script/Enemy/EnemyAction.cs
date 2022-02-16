@@ -41,8 +41,9 @@ public class EnemyAction : MonoBehaviour
     int currentHealth;
     public float speed;
     public GameObject enemy;
-    public PlayerAttack _combo;
+    
     Vector3 localScale;
+    
 
     
 
@@ -118,9 +119,11 @@ public class EnemyAction : MonoBehaviour
     {
        
         Debug.Log("EnemyDie");
+       
         StartCoroutine("enemyDie");
         GetComponent<Collider2D>().enabled = false;
         this.enabled = false;
+
     }
 
     public IEnumerator enemyDie()

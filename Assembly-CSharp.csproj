@@ -70,13 +70,16 @@
     <Compile Include="Assets\Script\Enemy\EnemyBehavior.cs" />
     <Compile Include="Assets\Script\Enemy\EnemyPatrol.cs" />
     <Compile Include="Assets\Script\GameManager\GameManager.cs" />
+    <Compile Include="Assets\Script\Lobby\Lobby.cs" />
     <Compile Include="Assets\Script\Object\Chest\Action.cs" />
     <Compile Include="Assets\Script\Object\Potion\PotionBlue.cs" />
     <Compile Include="Assets\Script\Object\Potion\PotionRed.cs" />
     <Compile Include="Assets\Script\Object\Ship\AI.cs" />
     <Compile Include="Assets\Script\Parralx\Parralax.cs" />
+    <Compile Include="Assets\Script\PartikelSystem\Destroy.cs" />
     <Compile Include="Assets\Script\Pause\Pause.cs" />
     <Compile Include="Assets\Script\Pause\RestartAndAnyMore.cs" />
+    <Compile Include="Assets\Script\Sound\SoundManager.cs" />
     <Compile Include="Assets\Script\WinCondisition\Win.cs" />
   </ItemGroup>
   <ItemGroup>
