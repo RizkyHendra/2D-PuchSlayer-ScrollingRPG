@@ -80,6 +80,7 @@
     <Compile Include="Assets\Script\Pause\Pause.cs" />
     <Compile Include="Assets\Script\Pause\RestartAndAnyMore.cs" />
     <Compile Include="Assets\Script\Sound\SoundManager.cs" />
+    <Compile Include="Assets\Script\WinCondisition\WIN2.cs" />
     <Compile Include="Assets\Script\WinCondisition\Win.cs" />
   </ItemGroup>
   <ItemGroup>

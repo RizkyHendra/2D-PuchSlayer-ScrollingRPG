@@ -7,7 +7,7 @@ public class RestartAndAnyMore : MonoBehaviour
 {
    public void RestartGame()
     {
-        SceneManager.LoadScene("Story_1");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Time.timeScale = 1;
     }
 
