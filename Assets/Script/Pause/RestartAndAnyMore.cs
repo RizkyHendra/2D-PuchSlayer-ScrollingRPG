@@ -26,4 +26,10 @@ public class RestartAndAnyMore : MonoBehaviour
         Time.timeScale = 1;
         SceneManager.LoadScene("Story_1");
     }
+
+    public void Dungeon1()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("Dungeon_1");
+    }
 }
