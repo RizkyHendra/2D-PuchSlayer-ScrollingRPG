@@ -25,6 +25,8 @@ ScriptsOnlyBuild:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridPaintingState
+    - UnityEditor.Tilemaps.GridPaletteBrushes
+    - UnityEditor.Tilemaps.GridPalettes
     - UnityEditor.Tilemaps.SceneViewGridManager
     - UnityEditor.Tilemaps.TileDragAndDropManager
     Unity.Rider.Editor.dll:
@@ -1146,4 +1148,4 @@ ScriptsOnlyBuild:
   - Assets/Scenes/Story_1.unity
   - Assets/Scenes/Story_2.unity
   - Assets/Scenes/Dungeon_1.unity
-  playerPath: F:/BuildUnity/YO/2D - PuchSlayer - SchrollingRPG.exe
+  playerPath: F:/BuildUnity/Test_PirateSlayer/2D - PuchSlayer - SchrollingRPG.exe
