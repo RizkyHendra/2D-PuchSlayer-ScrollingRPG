@@ -21,8 +21,9 @@ public class PlayerAttack : MonoBehaviour
     public int combo = 0;
 
     public EnemyAction _comboTree;
-    
 
+
+  
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -49,6 +50,7 @@ public class PlayerAttack : MonoBehaviour
                 if (combo == 1)
 
                 {
+                    
                     SoundManager.Playsound("Hit");
                     Attack1();
                     nextAttackTime = Time.time + 1f / attackRate;
